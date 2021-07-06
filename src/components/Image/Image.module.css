@@ -1,0 +1,11 @@
+.title{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #8798AD;
+    margin-bottom: 8px;
+}
+.image{
+    object-fit: cover;
+}

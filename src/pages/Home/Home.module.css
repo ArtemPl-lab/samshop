@@ -1,0 +1,27 @@
+.compilations{
+    margin-bottom: 64px;
+}
+.products{
+    margin-bottom: 64px;
+}
+.desc{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #2E384D;
+    max-width: 343px;
+}
+.advertisingContent{
+    display: flex;
+}
+.advertisingImage{
+    margin-right: 40px;
+}
+.compilations .grid{
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 343px;
+    grid-row-gap: 16px;
+}

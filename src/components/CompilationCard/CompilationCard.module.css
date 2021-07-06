@@ -1,0 +1,26 @@
+.card{
+    width: 100%;
+    padding: 19px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: move;
+}
+.title{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: #2E384D;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: .3s;
+}
+.title img{
+    margin-right: 12px;
+}
+
+.title:hover{
+    opacity: .8;
+}

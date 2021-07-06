@@ -1,0 +1,74 @@
+.list{
+    display: grid;
+    grid-template-columns: repeat(2, 270px);
+    grid-column-gap: 16px;
+    grid-row-gap: 10px;
+    list-style: none;
+    padding-left: 0;
+}
+.card{
+    width: 100%;
+    padding: 20px 16px;
+    display: flex;
+    align-items: center;
+    cursor: move;
+}
+.card a{
+    text-decoration: none;
+}
+.card img{
+    cursor: move;
+    height: 17px;
+    width: 12px;
+}
+.title{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: #2E384D;
+}
+.counted{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 10px;
+    color: #BBBFDB;
+}
+.info{
+    margin-left: 32px;
+}
+.number{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 10px;
+    color: #BBBFDB;
+    margin-bottom: 4px;
+}
+.edit{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #2E5BFF;
+    text-decoration: none;
+    margin-top: 5px;
+    margin-left: 16px;
+    transition: .3s;
+}
+.edit:hover{
+    opacity: .8;
+}
+.desc{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #2E384D;
+    max-width: 343px;
+    margin-bottom: 24px;
+}

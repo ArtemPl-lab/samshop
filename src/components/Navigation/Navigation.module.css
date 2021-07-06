@@ -1,0 +1,42 @@
+.wrapper{
+    background: #F1F2F8;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 343px;
+    overflow-y: auto;
+    direction: rtl;
+}
+.wrapper::-webkit-scrollbar {
+    width: 5px;
+    margin-top: 14px;
+    margin-bottom: 16px;
+    padding-right: 14px;
+}
+.wrapper::-webkit-scrollbar-thumb {
+    background: #8d98b6;
+    border-radius: 17px;
+}
+.wrapper::-webkit-scrollbar-track {
+    background: #e8e8e8;
+    border-radius: 17px;
+}
+.username{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 32px;
+    color: #2E384D;
+    padding-left: 65px;
+    padding-right: 27px;
+    direction: ltr;
+    padding-top: 62px;
+}
+.userlink{
+    text-decoration: none;
+    transition: .3s;
+}
+.userlink:hover{
+    opacity: .5;
+}

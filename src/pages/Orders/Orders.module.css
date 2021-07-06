@@ -1,0 +1,82 @@
+.wrapper{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 16px;
+    margin-top: 15px;
+}
+.order_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.guest{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: right;
+    color: #8798AD;
+}
+.name{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: right;
+    color: #2E5BFF;
+    text-decoration: none;
+    transition: .3s;
+}
+.name:hover{
+    opacity: .8;
+}
+.wrapper{
+    max-width: 778px;
+}
+.list_name{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: #2E384D;
+    margin-top: 24px;
+}
+.wrapper section{
+    margin-bottom: 24px;
+}
+section .label{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #8798AD;
+    margin-bottom: 8px;
+}
+.wrapper section hr{
+    display: block;
+    margin: 0;
+    margin-top: 40px;
+    width: 272px;
+    height: 1px;
+    background: #D9D9D9;
+    border: none;
+    outline: none;
+}
+.payer_list{
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.item{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+    color: #242422;
+    margin-top: 16px;
+}
+p.item{
+    max-width: 142px;
+    display: flex;
+    justify-content: space-between;
+}

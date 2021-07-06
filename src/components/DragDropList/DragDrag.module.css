@@ -1,0 +1,12 @@
+.item{
+    display: flex;
+}
+.dragged{
+    background: #F1F2F8;
+    border: 1px dashed #2E5BFF;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+.dragged > *{
+    opacity: 0 !important;
+}

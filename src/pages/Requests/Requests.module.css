@@ -1,0 +1,91 @@
+.tabs{
+    justify-content: space-between;
+}
+.orders{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 24px;
+}
+.wrapper{
+    max-width: 870px;
+}
+.orderCard{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    padding: 20px 24px;
+}
+.bulk{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    color: #E91B1B;
+    cursor: pointer;
+    text-align: right;
+    transition: .3s;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    height: fit-content;
+}
+.bulk:hover{
+    opacity: .8;
+}
+.order_phone{
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #2E384D;
+    margin-top: 16px;
+    text-decoration: none;
+    width: fit-content;
+    transition: .3s;
+}
+.order_phone:hover{
+    opacity: .8;
+}
+.order_date{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #8798AD;
+    text-align: center;
+}
+.parthnerships{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 24px;
+}
+.parthners_card{
+    padding: 8px 24px 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.parthnerInfo{
+    display: grid;
+    max-width: 292px;
+    grid-template-areas: "input input"
+                         "phone portfolio";
+}
+.parthnerInfo > div{
+    grid-area: input;
+    grid-column: span 2;
+}
+.parthnerInfo .order_phone{
+    grid-area: phone;
+}
+.portfolio{
+    grid-area: portfolio;
+    display: block;
+    margin-top: 16px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    text-decoration-line: underline;
+    color: #2E5BFF;
+}

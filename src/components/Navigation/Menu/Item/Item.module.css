@@ -1,0 +1,9 @@
+.item{
+    padding: 15px 65px;
+    transition: .3s;
+}
+.active{
+    background: #FFFFFF;
+}
+
+

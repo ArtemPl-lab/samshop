@@ -1,0 +1,37 @@
+.order{
+    padding: 20px 34px 20px 24px;
+    width: 100%;
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+    align-items: center;
+}
+.date{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #2E384D;
+}
+.count{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 10px;
+    color: #BBBFDB;
+}
+.number{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 21px;
+    color: #2E384D;
+}
+.details{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    color: #2E5BFF;
+    text-decoration: none;
+}
