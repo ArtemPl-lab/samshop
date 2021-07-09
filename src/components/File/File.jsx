@@ -7,10 +7,7 @@ const File = props => {
         if(resp.status === 200){
             const { id } = await resp.json();
             if(props.onChange){
-                var urlCreator = window.URL || window.webkitURL;
-                const resImg = await api.downloadMedia(id);
-                var imageUrl = urlCreator.createObjectURL(resImg);
-                props.onChange(imageUrl);
+                props.onChange(id);
             }
         }
     }

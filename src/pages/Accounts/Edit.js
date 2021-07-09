@@ -157,7 +157,7 @@ export const AccountsEdit = observer(props => {
                     </div>
                     <Tabs className={styles.tabs}>
                         <Tab name="Списки">
-                            Списки
+                            Нет списков
                         </Tab>
                         <Tab name="Заказы">
                             <Orders userId={id}/>

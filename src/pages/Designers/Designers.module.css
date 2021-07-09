@@ -1,0 +1,33 @@
+.designer{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-column-gap: 40px;
+}
+.designer_col{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+.wrapper{
+    margin-top: 40px;
+}
+.fileInput{
+    margin-top: 20px;
+}
+.designer_content{
+    margin-top: 24px;
+    height: 100%;
+}
+.drop{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    color: #E91B1B;
+    cursor: pointer;
+    transition: .3s;
+    float: right;
+}
+.drop:hover{
+    opacity: .8;
+}

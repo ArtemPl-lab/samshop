@@ -48,7 +48,7 @@ class ComplationsStore{
     async loadComplations(){
         if(this.load || this.complationsEnd) return;
         this.load = true;
-        var url = new URL('https://samshop.foxcpp.dev/api/compilations');
+        var url = new URL('https://samshop.foxcpp.dev/api/admin/compilations');
         url.search = new URLSearchParams({
             count: 20,
             offset: this.list.length

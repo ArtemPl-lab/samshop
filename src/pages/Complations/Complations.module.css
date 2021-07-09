@@ -72,3 +72,27 @@
     max-width: 343px;
     margin-bottom: 24px;
 }
+.comp_header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.comp_header h2{
+    margin-right: 22px;
+}
+.bulk{
+    margin-left: 19px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    color: #E91B1B;
+    cursor: pointer;
+    transition: .3s;
+}
+.bulk:hover{
+    opacity: .8;
+}
+.compilation_info{
+    max-width: 400px;
+}

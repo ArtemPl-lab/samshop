@@ -1,0 +1,19 @@
+.list{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 30px;
+}
+.open{
+    margin-left: 8px;
+    transform: rotate(180deg);
+    transition: .3s;
+}
+.close{
+    transform: rotate(0);
+    transition: .3s;
+    margin-left: 8px;
+}
+.title{
+    display: flex;
+    align-items: center;
+}

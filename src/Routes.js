@@ -9,15 +9,21 @@ const Routes = props => {
             <Route exact path="/home" component={Pages.Homepage} />
             <Route exact path="/orders" component={Pages.Orders} />
             <Route path="/orders/:id" component={Pages.OrderEdit} />
-            <Route path="/about" component={Pages.About} />
+            <Route path="/about">
+                <Pages.InnerPage title="Блок об авторе" pageId="about"/>
+            </Route>
             <Route path="/requests" component={Pages.Requests} />
             <Route exact path="/complations" component={Pages.ComplationsPage} />
             <Route path="/complations/:path" component={Pages.ComplationEdit} />
-            <Route path="/parthners" component={Pages.Parthners} />
+            <Route path="/parthners">
+                <Pages.InnerPage title="Партнёраская программа" pageId="designers"/>
+            </Route>
+            <Route path="/designers" component={Pages.Designers} />
             <Route exact path="/accounts" component={Pages.Accounts} />
             <Route path="/accounts/:id" component={Pages.AccountsEdit} />
+            <Route path="/pages" component={Pages.CustomPages} />
         </>
     );
 }
 
-export default Routes;
+export default Routes; 

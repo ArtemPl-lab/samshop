@@ -4,40 +4,35 @@ import { IconLoad, SectionTitle } from "../../components/UiKit/UiKit";
 import { useStore } from "../../store/store";
 import Image from '../../components/Image/Image';
 import File from "../../components/File/File";
-import styles from './Parthners.module.css';
-export const Parthners = props => {
-    const pageId = 'parthners';
+import styles from './InnerPage.module.css';
+export const InnerPage = ({ title, pageId }) => {
     const { changesStore, pages } = useStore();
     const [ state, setState ] = useState({
         image: '',
         content: ''
     });
-    const changeSaver = () => {
-        pages.save(pageId, state);
-    }
     const handleChange = (key, value) => {
-        console.log(value);
-        setState({
+        if(state[key] === value) return;
+        const change = {
             ...state,
             [key]: value
-        });
-        changesStore.addChange(pageId, changeSaver);
+        };
+        changesStore.addChange(pageId, () => pages.save(pageId, change));
+        setState(change);
     }
     useEffect(async ()=>{
-        const pageContent = await pages.load(pageId);
-        console.log(pageContent);
-        setState({
-            ...state,
-            pageContent
-        });
+        const pageContent = await pages.getPage(pageId);
+        if(pageContent){
+            setState(pageContent);
+        }
     }, []);
     return(
         <div className={styles.wrapper}>
             <SectionTitle>
-                Партнёраская программа
+                {title}
             </SectionTitle>
             <Image 
-                src={state.image}
+                id={state.image}
                 width="100%"
                 heigth={300}
                 title="Фотография №1 (1366х460 рх.)"
@@ -46,7 +41,7 @@ export const Parthners = props => {
                 <IconLoad />
                 Загрузить другую
             </File>
-            <Tiny onEditorChange={(val)=>handleChange('content', val)} value="df"/>
+            <Tiny onEditorChange={(val)=>handleChange('content', val)} value={state.content}/>
         </div>
     );
 }

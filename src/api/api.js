@@ -37,6 +37,23 @@ class API{
             body: body
         });
     }
+    delete(path){
+        return fetch(`${this.address}${path}`, {
+            method: 'DELETE',
+            headers: {
+                'X-SessionID': getCookie('token'),
+            }
+        })
+    }
+    patch(path, data){
+        return fetch(`${this.address}${path}`, {
+            method: 'PATCH',
+            headers: {
+                'X-SessionID': getCookie('token'),
+            },
+            body: JSON.stringify(data)
+        });
+    }
     uploadMedia(file){
         if(!file) return;
         return fetch(`${this.address}/resources`, {

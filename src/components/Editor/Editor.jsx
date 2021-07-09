@@ -13,9 +13,9 @@ export default function Tiny(props) {
       <Editor
         apiKey="llye9u61s05d1t8wpej0br4kyuqomj0ioj0g97bqkdnqxszo"
         onInit={(evt, editor) => editorRef.current = editor}
-        initialValue={props.value}
+        value={props.value}
         init={{
-          height: 320,
+          height: props.height || 320,
           menubar: false,
           plugins: [
             'advlist autolink lists link image charmap print preview anchor',
@@ -25,8 +25,9 @@ export default function Tiny(props) {
           toolbar: 'undo redo | formatselect | ' +
           'bold italic backcolor | alignleft aligncenter ' +
           'alignright alignjustify | bullist numlist outdent indent | ' +
-          'removeformat | help',
+          'removeformat | image | help',
         }}
+        // inline={true}
         {...props}
       />
     </>
