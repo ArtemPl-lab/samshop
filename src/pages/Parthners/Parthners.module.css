@@ -1,0 +1,22 @@
+.fileInput{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.wrapper{
+    padding-bottom: 100px;
+}
+.delete{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    color: #E91B1B;
+    float: right;
+    cursor: pointer;
+    transition: .3s;
+}
+.delete:hover{
+    opacity: .8;
+}
