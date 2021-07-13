@@ -66,7 +66,7 @@ class API{
         });
     }
     downloadMedia(id){
-        return this.get(`/resources/${id}`).then(res => res.blob());
+        return this.get(`${id}`).then(res => res.blob());
     }
 }
 

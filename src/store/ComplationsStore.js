@@ -61,9 +61,11 @@ class ComplationsStore{
             }
         });
        let { compilations } = await resp.json();
-       for(let i = 0; i < compilations.length; i++){
-           compilations[i] = await this.getComplation(compilations[i].path);
-       }
+        if(compilations){
+            for(let i = 0; i < compilations.length; i++){
+                compilations[i] = await this.getComplation(compilations[i].path);
+            }
+        }
        this.list = [...new Set(this.list.concat(compilations).map(JSON.stringify))].map(JSON.parse);
        console.log( {...this.list} );
        this.complationsEnd = !compilations.length;

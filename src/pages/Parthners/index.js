@@ -7,7 +7,7 @@ import Image from '../../components/Image/Image';
 import File from "../../components/File/File";
 import Input from '../../components/Input/Input';
 export const Parthners = props => {
-    const pageId = "parthnersPage";
+    const pageId = "partnersPage";
     const { changesStore, pages } = useStore();
     const [ state, setState ] = useState({
         image: '',
@@ -64,7 +64,7 @@ export const Parthners = props => {
                 heigth={300}
                 title="Фотография №1 (1366х460 рх.)"
             />
-            <File onChange={(file) => handleChange('image', file)} className={styles.fileInput}>
+            <File onChange={(file) => handleChange('image', `/resources/${file}`)} className={styles.fileInput}>
                 <IconLoad />
                 Загрузить другую
             </File>

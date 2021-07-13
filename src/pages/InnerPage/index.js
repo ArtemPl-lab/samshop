@@ -37,7 +37,7 @@ export const InnerPage = ({ title, pageId }) => {
                 heigth={300}
                 title="Фотография №1 (1366х460 рх.)"
             />
-            <File onChange={(file) => handleChange('image', file)} className={styles.fileInput}>
+            <File onChange={(file) => handleChange('image', `/resources/${file}`)} className={styles.fileInput}>
                 <IconLoad />
                 Загрузить другую
             </File>

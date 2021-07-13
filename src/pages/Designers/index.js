@@ -65,7 +65,7 @@ const Designer = observer(({ data }) => {
                     title="Фотография №1 (544х480 рх.)"
                 />
                 <File 
-                    onChange={(fileId) => handleChange('photo', fileId)} 
+                    onChange={(fileId) => handleChange('photo', `/resources/${fileId}`)} 
                     className={styles.fileInput}
                 >
                     <IconLoad />

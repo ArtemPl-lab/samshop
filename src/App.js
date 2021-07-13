@@ -27,6 +27,7 @@ const SiteContent = observer(() => {
   const { user } = useStore();
   if(user.load) return <Pages.Load />
   if(!user.data) return <Pages.Login />
+  console.log(user.data);
   return(
     <>
       <Navigation />
