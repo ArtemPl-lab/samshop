@@ -4,6 +4,7 @@ import { SectionTitle, ComeBack, Button, IconSend, OrderStatus } from '../../com
 import styles from './Orders.module.css'
 import { useState } from "react";
 import { useEffect } from "react";
+import ProdCard from "./ProdCard";
 
 export const OrderEdit = props => {
     const { id } = useParams();
@@ -55,6 +56,14 @@ export const OrderEdit = props => {
             <section>
                 <h3 className={styles.label}>
                     Товары:
+                    {state.order.items.map(item => {
+                        return(
+                            <div style={{marginBottom: 10}}>
+                                <ProdCard {...item.good} amount={item.amount} options={item.props}/>
+                            </div>
+                            
+                        );
+                    })}
                     <hr />
                 </h3>
             </section>

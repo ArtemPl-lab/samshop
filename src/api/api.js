@@ -49,6 +49,7 @@ class API{
         return fetch(`${this.address}${path}`, {
             method: 'PATCH',
             headers: {
+                'Content-Type': 'application/json;charset=utf-8',
                 'X-SessionID': getCookie('token'),
             },
             body: JSON.stringify(data)
@@ -67,6 +68,12 @@ class API{
     }
     downloadMedia(id){
         return this.get(`${id}`).then(res => res.blob());
+    }
+    objectToUrl(params){
+        var esc = encodeURIComponent;
+        return Object.keys(params)
+            .map(k => esc(k) + '=' + esc(params[k]))
+            .join('&');
     }
 }
 

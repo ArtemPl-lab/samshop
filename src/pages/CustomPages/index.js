@@ -8,6 +8,10 @@ export const CustomPages = props => {
     return(
         <div className={styles.list}>
             <Page 
+                title="Контакты" 
+                id="contacts"
+            />
+            <Page 
                 title="Как оформить заказ" 
                 id="how_order"
             />

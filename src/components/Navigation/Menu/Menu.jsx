@@ -25,7 +25,7 @@ const menuItems = [
         props: {
             to: '/parthners'
         },
-        content: 'Партнёраская программа',
+        content: 'Партнёрская программа',
         bage: false
     },
     {

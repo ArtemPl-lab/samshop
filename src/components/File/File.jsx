@@ -7,7 +7,7 @@ const File = props => {
         if(resp.status === 200){
             const { id } = await resp.json();
             if(props.onChange){
-                props.onChange(id);
+                props.onChange(id, e.target.files[0]);
             }
         }
     }
