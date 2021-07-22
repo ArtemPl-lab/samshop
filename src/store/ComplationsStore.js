@@ -12,6 +12,27 @@ class ComplationsStore{
         });
         this.loadComplations();
     }
+    async save(cmp){
+        await fetch(`https://samshop.foxcpp.dev/api/admin/compilations/${cmp.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'X-SessionID': await this.root.user.getToken()
+            },
+            body: JSON.stringify(cmp)
+        });
+    }
+    async delete(id){
+        const res = await fetch(`https://samshop.foxcpp.dev/api/admin/compilations/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-SessionID': await this.root.user.getToken()
+            }
+        });
+        if(res.ok){
+            this.list = this.list.filter(el => el.id !== id);
+        }  
+    }
     async add(){
         const res = await fetch(`https://samshop.foxcpp.dev/api/admin/compilations`, {
             method: 'POST',

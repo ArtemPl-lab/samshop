@@ -1,6 +1,6 @@
 import styles from './Complations.module.css';
 import { ComeBack } from '../../components/UiKit/UiKit';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { useStore } from '../../store/store';
@@ -19,19 +19,32 @@ export const ComplationEdit = observer(props => {
     const [ padding, setPadding ] = useState("146%");
     const [ imageLoaded, setImageLoaded ] = useState(false);
     const photoRef = useRef(null);
-    const { compilations } = useStore();
+    const { compilations, changesStore } = useStore();
     const [complation, setComplation] = useState();
+    const history = useHistory();
     const cmp = compilations.list.find(comp => comp.path === path);
     useEffect(()=>{
         setComplation(cmp);
     }, [cmp]);
     const handleChange = (key, value) => {
+        changesStore.addChange(`cmp_${cmp.id}`, async () => {
+            compilations.save({
+                ...complation,
+                [key]: value
+            });
+        });
         setComplation(state => ({
             ...state,
             [key]: value
         }));
     }
-    const handleImage = (key, value, sizes) => {
+    const handleImage = (key, value) => {
+        changesStore.addChange(`cmp_${cmp.id}`, async () => {
+            compilations.save({
+                ...complation,
+                [key]: value
+            });
+        });
         setComplation(state => ({
             ...state,
             [key]: value
@@ -86,7 +99,10 @@ export const ComplationEdit = observer(props => {
                     {complation.title}
                 </SectionTitle>
                 <Toggle />
-                <div className={styles.bulk}>Удалить</div>
+                <div className={styles.bulk} onClick={()=>{
+                    compilations.delete(complation.id);
+                    history.goBack();
+                }}>Удалить</div>
             </div>
             <Input label="Название подборки" onChange={(e)=>handleChange('title', e.target.value)} value={complation.title} className={styles.input}/>
             <div className={styles.row}>
