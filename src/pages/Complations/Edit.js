@@ -40,8 +40,10 @@ export const ComplationEdit = observer(props => {
         }));
     }
     const handleImage = (key, value) => {
-        changesStore.addChange(`cmp_image_${cmp.id}`, async () => {
+        console.log(complation);
+        changesStore.addChange(`cmp_image_${complation.id}`, async () => {
             compilations.save({
+                ...complation,
                 [key]: value
             });
         });
