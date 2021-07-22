@@ -28,8 +28,9 @@ export const ComplationEdit = observer(props => {
     }, [cmp]);
     const handleChange = (key, value) => {
         changesStore.addChange(`cmp_${cmp.id}`, async () => {
+            const { photo, ...state } = complation;
             compilations.save({
-                ...complation,
+                ...state,
                 [key]: value
             });
         });
@@ -39,9 +40,8 @@ export const ComplationEdit = observer(props => {
         }));
     }
     const handleImage = (key, value) => {
-        changesStore.addChange(`cmp_${cmp.id}`, async () => {
+        changesStore.addChange(`cmp_image_${cmp.id}`, async () => {
             compilations.save({
-                ...complation,
                 [key]: value
             });
         });
@@ -164,21 +164,24 @@ export const ComplationEdit = observer(props => {
                     </span>
                 </div>
             </div>
-            <div className={styles.row}>
-                <div className={styles.label}>
-                    Товары в этой подборке:
-                </div>
-                <div className={styles.goods_grid}>
-                    {
-                        complation.goods.map((item, index) => {
-                            return(
-                                <GoodCard {...item.good} index={index} key={index} bulk={()=>handleDelete(item)}/>
-                            );
-                        })
-                    }
-                </div>
-            </div>
-            {/* {JSON.stringify(complation)} */}
+            {
+                complation.goods.length ? 
+                <div className={styles.row}>
+                    <div className={styles.label}>
+                        Товары в этой подборке:
+                    </div>
+                    <div className={styles.goods_grid}>
+                        {
+                            complation.goods.map((item, index) => {
+                                return(
+                                    <GoodCard {...item.good} index={index} key={index} bulk={()=>handleDelete(item)}/>
+                                );
+                            })
+                        }
+                    </div>
+                </div> :
+                ''
+            }
         </div>
     );
 });
