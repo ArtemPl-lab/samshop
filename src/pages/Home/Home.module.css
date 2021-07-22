@@ -17,6 +17,7 @@
 }
 .advertisingImage{
     margin-right: 40px;
+    max-width: 232px;
 }
 .compilations .grid{
     margin-top: 24px;

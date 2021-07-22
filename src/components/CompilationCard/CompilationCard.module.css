@@ -24,3 +24,15 @@
 .title:hover{
     opacity: .8;
 }
+.select{
+    border: none;
+    outline: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: #2E384D;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

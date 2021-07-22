@@ -2,6 +2,8 @@
     position: absolute;
     z-index: -1;
     opacity: 0;
+    left: 0;
+    top: 0;
 }
 .label{
     background: #2E5BFF;
@@ -16,6 +18,7 @@
     cursor: pointer;
     transition: .3s;
     display: inline-block;
+    white-space: nowrap;
 }
 .label:hover{
     opacity: .8;

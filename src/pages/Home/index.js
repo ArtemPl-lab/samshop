@@ -5,7 +5,7 @@ import styles from './Home.module.css';
 import Tiny from "../../components/Editor/Editor";
 import CompilationCard from "../../components/CompilationCard/CompilationCard";
 import api from "../../api/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import File from "../../components/File/File";
 import { IconLoad } from "../../components/UiKit/UiKit";
 import DragDropItem from '../../components/DragDropList/DragDropItem';
@@ -15,7 +15,13 @@ import { observer } from "mobx-react-lite";
 export const  Homepage = observer(props => {
     const { changesStore, compilations } = useStore();
     const [state, setState] = useState({
-        desc: ''
+        ad: {
+            photo: '',
+            desc: ''
+        },
+        compilations: [],
+        compilations_hidden: [],
+        goods: []
     });
     const moveCard = (dragIndex, hoverIndex) => {
         const dragCard = compilations.list[dragIndex];
@@ -25,6 +31,19 @@ export const  Homepage = observer(props => {
                 [hoverIndex, 0, dragCard],
             ],
         }));
+    }
+    const handleAdsChange = (key, value) => {
+        setState(prev => {
+            const st = {
+                ...prev,
+                ad: {
+                    ...prev.ad,
+                    [key]: value
+                }
+            }
+            changesStore.addChange('main_page', async () => api.patch('/admin/main', st));
+            return st;
+        });
     }
     const handleChange = (key, value) => {
         setState(prev => ({
@@ -37,12 +56,56 @@ export const  Homepage = observer(props => {
                     ...state,
                     [key]: value
                 },
-                compilations: compilations.list.map(cmp => cmp.id),
-                compilations_hidden: compilations.list.map(cmp => false),
+                compilations: state.compilations,
+                compilations_hidden: state.compilations.map(cmp => false),
                 goods: []
             });
         });
     }
+    const cmpId = (index, newID) => {
+        setState(prev => {
+            const st = {
+                ...prev,
+                compilations: prev.compilations.map((c, ind) => {
+                    if(index === ind) return newID;
+                    return c;
+                }),
+                compilations_hidden: [...state.compilations].map(cmp => false),
+            }
+            changesStore.addChange('main_page', async () => api.patch('/admin/main', st));
+            return st;
+        });
+    }
+    const addCmp = () => {
+        const crCmp = new Set(state.compilations);
+        compilations.list.every(el => {
+            if(!crCmp.has(el.id)){
+                setState(prev => {
+                    const st = {
+                        ...prev,
+                        compilations: [
+                            ...prev.compilations,
+                            el.id
+                        ],
+                        compilations_hidden: [...state.compilations, el.id].map(cmp => false),
+                    }
+                    changesStore.addChange('main_page', async () => api.patch('/admin/main', st));
+                    return st;
+                });
+                return false;
+            }
+            return true;
+        });
+    }
+    const init = async () => {
+        const res = await api.get('/admin/main');
+        const json = await res.json();
+        if(res.ok && json){
+            console.log(json);
+            setState(json);
+        }
+    }
+    useEffect(init, []);
     return(
         <>
             <section className={styles.compilations}>
@@ -54,19 +117,23 @@ export const  Homepage = observer(props => {
                 </p>
                 <div className={styles.grid}>
                     {
-                        compilations.list.map((card, index) => 
-                            <div key={card.id}>
-                                <DragDropItem
-                                    index={index}
-                                    moveCard={moveCard}
-                                >
-                                    <CompilationCard {...card}/>
-                                </DragDropItem>
-                            </div>
-                        )
+                        state.compilations.map((id, index) => {
+                            const cmp = compilations.list.find(el => el.id === id);
+                            if(!cmp) return <></>;
+                            return(
+                                <div key={cmp.id}>
+                                    <DragDropItem
+                                        index={index}
+                                        moveCard={moveCard}
+                                    >
+                                        <CompilationCard {...cmp} handleChange={(id)=>cmpId(index, id)}/>
+                                    </DragDropItem>
+                                </div>
+                            );
+                        })
                     }
                 </div>
-                <Button color="blue">
+                <Button color="blue" onClick={addCmp}>
                     <IconPlus />
                     Добавить подборку
                 </Button>
@@ -78,6 +145,10 @@ export const  Homepage = observer(props => {
                 <p className={styles.desc}>
                     Выберите товары, которые будут показаны на Главной странице. Максимум 4 товара.
                 </p>
+                <Button color="blue">
+                    <IconPlus />
+                    Добавить товар
+                </Button>
             </section>
             <section className={styles.advertising}>
                 <SectionTitle>
@@ -85,9 +156,9 @@ export const  Homepage = observer(props => {
                 </SectionTitle>
                 <div className={styles.advertisingContent}>
                     <div className={styles.advertisingImage}>
-                        <Image id={state.photo} title="Фотография (592х592 рх.)" heigth="232px" width="232px" />
+                        <Image id={state.ad.photo} title="Фотография (592х592 рх.)" heigth="232px" width="232px" />
                         <File 
-                            onChange={(fileId) => handleChange('photo', `/resources/${fileId}`)} 
+                            onChange={(fileId) => handleAdsChange('photo', `/resources/${fileId}`)} 
                             className={styles.fileInput}
                         >
                             <IconLoad />
@@ -96,8 +167,8 @@ export const  Homepage = observer(props => {
                     </div>
                     <div>
                         <Tiny 
-                            onEditorChange={(val)=>handleChange('desc', val)}
-                            value={state.desc}
+                            onEditorChange={(val)=>handleAdsChange('desc', val)}
+                            value={state.ad.desc}
                         />
                     </div>
                 </div>
@@ -106,3 +177,4 @@ export const  Homepage = observer(props => {
         </>
     );
 });
+

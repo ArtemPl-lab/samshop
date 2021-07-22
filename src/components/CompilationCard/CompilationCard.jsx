@@ -2,18 +2,23 @@ import { Link } from 'react-router-dom';
 import Card from '../Card/Card';
 import Toggle from '../Toggle/Toggle';
 import styles from './CompilationCard.module.css';
-
-const CompilationCard = ({ id, title }) => {
+import { useStore } from '../../store/store';
+const CompilationCard = ({ id, handleChange }) => {
+    const { compilations } = useStore();
     return(
         <Card className={styles.card}>
-            <Link className={styles.title} to={`/compilation/${id}`}>
+            <div className={styles.title}>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect y="1" width="12" height="2" rx="1" fill="#BBBFDB"/>
                     <rect y="5" width="12" height="2" rx="1" fill="#BBBFDB"/>
                     <rect y="9" width="12" height="2" rx="1" fill="#BBBFDB"/>
                 </svg>
-                {title}
-            </Link>
+                <select className={styles.select} onChange={(e)=> handleChange(e.target.value)}>
+                    {
+                        compilations.list.map(cmp => <option value={cmp.id} selected={cmp.id === id}>{cmp.title}</option>)
+                    }
+                </select>
+            </div>
             <Toggle onChange={()=>console.log("sdfd")}/>
         </Card>
     )
