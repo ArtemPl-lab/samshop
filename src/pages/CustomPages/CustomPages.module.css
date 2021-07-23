@@ -17,3 +17,9 @@
     display: flex;
     align-items: center;
 }
+.contacts{
+    width: 50%;
+}
+.contacts label{
+    margin-top: 20px;
+}

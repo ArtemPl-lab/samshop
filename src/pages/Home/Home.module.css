@@ -10,11 +10,13 @@
     font-size: 15px;
     line-height: 21px;
     color: #2E384D;
-    max-width: 343px;
+    /* max-width: 343px; */
 }
 .advertisingContent{
     display: flex;
+    width: 100%;
 }
+
 .advertisingImage{
     margin-right: 40px;
     max-width: 232px;
@@ -23,6 +25,14 @@
     margin-top: 24px;
     margin-bottom: 24px;
     display: grid;
-    grid-template-columns: 343px;
+    grid-template-columns: 433px;
     grid-row-gap: 16px;
+}
+.goods_grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 30px;
+}
+.editor{
+    width: 100%;
 }

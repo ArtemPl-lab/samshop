@@ -11,7 +11,8 @@ import { IconLoad } from "../../components/UiKit/UiKit";
 import DragDropItem from '../../components/DragDropList/DragDropItem';
 import update from 'immutability-helper';
 import { observer } from "mobx-react-lite";
-
+import Input from "../../components/Input/Input";
+import GoodCard from "../../components/GoodCard";
 export const  Homepage = observer(props => {
     const { changesStore, compilations } = useStore();
     const [state, setState] = useState({
@@ -23,14 +24,29 @@ export const  Homepage = observer(props => {
         compilations_hidden: [],
         goods: []
     });
+    const [goods, setGoods] = useState([]);
     const moveCard = (dragIndex, hoverIndex) => {
-        const dragCard = compilations.list[dragIndex];
-        compilations.setComplations(update(compilations.list, {
-            $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, dragCard],
-            ],
-        }));
+        const dragCard = state.compilations[dragIndex];
+        const dragCardHidden = state.compilations_hidden[dragIndex];
+        const newSt = {
+            ...state,
+            compilations: update(state.compilations, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, dragCard],
+                ],
+            }),
+            compilations_hidden: update(state.compilations_hidden, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, dragCardHidden],
+                ],
+            })
+        }
+        console.log(newSt);
+        changesStore.addChange('main_page', async () => api.patch('/admin/main', newSt));
+        setState(newSt);
+
     }
     const handleAdsChange = (key, value) => {
         setState(prev => {
@@ -43,23 +59,6 @@ export const  Homepage = observer(props => {
             }
             changesStore.addChange('main_page', async () => api.patch('/admin/main', st));
             return st;
-        });
-    }
-    const handleChange = (key, value) => {
-        setState(prev => ({
-            ...prev,
-            [key]: value
-        }));
-        changesStore.addChange('main_page', async ()=>{
-            const res = await api.patch('/admin/main', {
-                ad: {
-                    ...state,
-                    [key]: value
-                },
-                compilations: state.compilations,
-                compilations_hidden: state.compilations.map(cmp => false),
-                goods: []
-            });
         });
     }
     const cmpId = (index, newID) => {
@@ -97,13 +96,68 @@ export const  Homepage = observer(props => {
             return true;
         });
     }
+    const deleteCmp = id => {
+        const index = state.compilations.findIndex(el => el === id);
+        const newSt = {
+            ...state,
+            compilations: state.compilations.filter((el, ind) => ind !== index),
+            compilations_hidden: state.compilations_hidden.filter((el, ind) => ind !== index)
+        }
+        changesStore.addChange('main_page', async () => api.patch('/admin/main', newSt));
+        setState(newSt);
+    }
+    const toggleCmp = (id, val) => {
+        const index = state.compilations.findIndex(el => el === id);
+        const newSt = {
+            ...state,
+            compilations_hidden: state.compilations_hidden.map((el, ind) => ind === index ? !val : el)
+        }
+        console.log(newSt);
+        changesStore.addChange('main_page', async () => api.patch('/admin/main', newSt));
+        setState(newSt);
+    }
     const init = async () => {
         const res = await api.get('/admin/main');
         const json = await res.json();
         if(res.ok && json){
-            console.log(json);
             setState(json);
+            json.goods.forEach(async el => {
+                const { good } = await (await api.get(`/admin/catalog/goods/${el}`)).json();
+                console.log(good);
+                console.log();
+                setGoods(prev => [
+                    ...prev,
+                    good
+                ]);
+            });
         }
+    }
+    const addGood = prod => {
+        if(new Set(state.goods).has(prod.id)) return;
+        const newSt = {
+            ...state,
+            goods: [
+                ...state.goods,
+                prod.id
+            ]
+        }
+        changesStore.addChange('main_page', async () => api.patch('/admin/main', newSt));
+        setState(newSt);
+        setGoods(prev => [
+            ...prev,
+            prod
+        ]);
+    }
+    const removeGood = id => {
+        const newSt = {
+            ...state,
+            goods: state.goods.filter(g => g !== id)
+        }
+        changesStore.addChange('main_page', async () => api.patch('/admin/main', newSt));
+        setState(newSt);
+        setGoods(prev => {
+            return prev.filter(el => el.id !== id);
+        });
     }
     useEffect(init, []);
     return(
@@ -126,7 +180,13 @@ export const  Homepage = observer(props => {
                                         index={index}
                                         moveCard={moveCard}
                                     >
-                                        <CompilationCard {...cmp} handleChange={(id)=>cmpId(index, id)}/>
+                                        <CompilationCard 
+                                            {...cmp}
+                                            handleChange={(id)=>cmpId(index, id)}
+                                            deleteCmp={deleteCmp}
+                                            toggleCmp={toggleCmp}
+                                            isActive={!state.compilations_hidden[index]}
+                                        />
                                     </DragDropItem>
                                 </div>
                             );
@@ -144,16 +204,21 @@ export const  Homepage = observer(props => {
                 </SectionTitle>
                 <p className={styles.desc}>
                     Выберите товары, которые будут показаны на Главной странице. Максимум 4 товара.
+                    <br />
+                    <br />
+                    <SearchProduct handler={addGood}/>
                 </p>
-                <Button color="blue">
-                    <IconPlus />
-                    Добавить товар
-                </Button>
+                <div className={styles.goods_grid}>
+                    {
+                        goods.map((g, index) => <GoodCard {...g} index={index} bulk={()=>removeGood(g.id)}/>)
+                    }
+                </div>
             </section>
             <section className={styles.advertising}>
                 <SectionTitle>
                     Рекламный блок
                 </SectionTitle>
+                <br />
                 <div className={styles.advertisingContent}>
                     <div className={styles.advertisingImage}>
                         <Image id={state.ad.photo} title="Фотография (592х592 рх.)" heigth="232px" width="232px" />
@@ -165,7 +230,7 @@ export const  Homepage = observer(props => {
                             Загрузить другую
                         </File>
                     </div>
-                    <div>
+                    <div className={styles.editor}>
                         <Tiny 
                             onEditorChange={(val)=>handleAdsChange('desc', val)}
                             value={state.ad.desc}
@@ -177,4 +242,46 @@ export const  Homepage = observer(props => {
         </>
     );
 });
+
+const SearchProduct = props => {
+    console.log(props.value);
+    const [val, setVal] = useState(props.value);
+    const [products, setProducts] = useState([]);
+    const handleChange = async e => {
+        setVal(e.target.value);
+        const res = await api.get('/catalog/search', {
+            query: e.target.value,
+            count: 10
+        });
+        if(!res.ok) return;
+        const { goods } = await res.json();
+        setProducts(goods);
+    }
+    useEffect(()=>{
+        setVal(props.value);
+    }, [props.value]);
+    return(
+        <div className={styles.search_wrapper}>
+            <Input 
+                placeholder="Начните вводить наименование"
+                className={styles.prodname_input} value={val}
+                onChange={handleChange}
+            />
+            {
+                products.length ? 
+                <ul className={styles.search_list}>
+                    {
+                        products.map(prod => {
+                            return(
+                                <li onClick={()=>props.handler(prod)}>{prod.title}</li>
+                            );
+                        })
+                    }
+                </ul> :
+                ''
+            }
+        </div>
+    );
+}
+
 

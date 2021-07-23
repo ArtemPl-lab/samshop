@@ -1,7 +1,6 @@
 import styles from './GoodCard.module.css';
 import Image from '../Image/Image';
 const GoodCard = props => {
-    console.log(props.photos[0].thumb);
     return(
         <div className={styles.wrapper}>
             <div className={styles.number}>
@@ -9,7 +8,7 @@ const GoodCard = props => {
             </div>
             <div className={styles.card}>
                 <Image 
-                    id={props.photos[0].thumb}
+                    id={props.photos[0]}
                     height={104}
                     width={104}
                 />

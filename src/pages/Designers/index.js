@@ -62,6 +62,7 @@ const Designer = observer(({ data }) => {
             <div className={styles.designer_col}>
                 <Image 
                     id={state.photo}
+                    width="100%"
                     title="Фотография №1 (544х480 рх.)"
                 />
                 <File 

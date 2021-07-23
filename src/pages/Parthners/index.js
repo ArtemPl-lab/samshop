@@ -58,6 +58,7 @@ export const Parthners = props => {
             <SectionTitle>
                 Партнёраская программа
             </SectionTitle>
+            <br />
             <Image 
                 id={state.image}
                 width="100%"

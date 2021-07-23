@@ -3,17 +3,15 @@ import { useStore } from "../../store/store";
 import Tiny from "../../components/Editor/Editor";
 import { SectionTitle, IconDropdown } from '../../components/UiKit/UiKit';
 import styles from './CustomPages.module.css';
+import Input from '../../components/Input/Input';
 
 export const CustomPages = props => {
     return(
         <div className={styles.list}>
-            <Page 
-                title="Контакты" 
-                id="contacts"
-            />
+            <Contacts />
             <Page 
                 title="Как оформить заказ" 
-                id="how_order"
+                id="howto"
             />
             <Page 
                 title="Оплата" 
@@ -25,7 +23,7 @@ export const CustomPages = props => {
             />
             <Page 
                 title="Гарантия" 
-                id="garant"
+                id="warranty"
             />
             <Page 
                 title="Возврат" 
@@ -68,6 +66,70 @@ const Page = props => {
             </SectionTitle>
             {
                 active ? <Tiny onEditorChange={handleChange} value={content.desc} /> : ''
+            }
+        </>
+    );
+}
+
+const Contacts =  props => {
+    const pageId = "contacts";
+    const { changesStore, pages } = useStore();
+    const [active, setActive] = useState(false);
+    const [content, setContent] = useState();
+    const handleChange = (key, val) => {
+        const newVal = {
+            ...content,
+            [key]: val
+        }
+        changesStore.addChange(pageId, ()=>{
+            pages.save(pageId, newVal)
+        });
+        setContent(newVal);
+    }
+    useEffect(async ()=>{
+        const pageContent = await pages.getPage(pageId);
+        if(pageContent) setContent(pageContent);
+    }, []);
+    return(
+        <>
+            <SectionTitle onClick={()=>setActive(!active)} className={styles.title}>
+                Контакты
+                <IconDropdown className={(active ? styles.open : styles.close)}/>
+            </SectionTitle>
+            {
+                active ? 
+                <div className={styles.contacts}>
+                    <Input
+                        label="Email"
+                        value={content.email}
+                        onChange={(e)=>handleChange('email', e.target.value)}
+                    />
+                    <Input
+                        label="Houzz"
+                        value={content.houzz}
+                        onChange={(e)=>handleChange('houzz', e.target.value)}
+                    />
+                    <Input
+                        label="Instagram"
+                        value={content.instagram}
+                        onChange={(e)=>handleChange('instagram', e.target.value)}
+                    />
+                    <Input
+                        label="Телефон"
+                        value={content.phone}
+                        onChange={(e)=>handleChange('phone', e.target.value)}
+                    />
+                    <Input
+                        label="Pinterest"
+                        value={content.pinterest}
+                        onChange={(e)=>handleChange('pinterest', e.target.value)}
+                    />
+                    <Input
+                        label="Youtube"
+                        value={content.youtube}
+                        onChange={(e)=>handleChange('youtube', e.target.value)}
+                    />
+                </div> : ''
             }
         </>
     );

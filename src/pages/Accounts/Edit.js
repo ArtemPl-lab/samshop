@@ -8,6 +8,7 @@ import { generate } from 'generate-password';
 import { Tabs, Tab } from '../../components/Tabs';
 import { observer } from "mobx-react-lite";
 import Orders from "./Orders";
+import MaskedInput from 'react-maskedinput'
 
 export const AccountsEdit = observer(props => {
     const { id } = useParams();
@@ -113,9 +114,10 @@ export const AccountsEdit = observer(props => {
                     />
                 </div>
                 <div className={styles.row}>
-                    <Input 
+                    <MaskedInput 
+                        mask="+7(111) 111-11-11"
                         label="Номер телефона" 
-                        className={styles.input} 
+                        className={`${styles.input} ${styles.phone_input}`} 
                         onChange={handleChange}
                         name="phone"
                         value={userData.phone}

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import api from '../../api/api';
 
 export default function Tiny(props) {
   const editorRef = useRef(null);
@@ -11,21 +12,34 @@ export default function Tiny(props) {
   return (
     <>
       <Editor
-        apiKey="llye9u61s05d1t8wpej0br4kyuqomj0ioj0g97bqkdnqxszo"
+        tinymceScriptSrc="/tinymce/tinymce.min.js"
         onInit={(evt, editor) => editorRef.current = editor}
         value={props.value}
         init={{
           height: props.height || 320,
           menubar: false,
+          images_upload_url: `${api.address}/resources/`,
+
+          images_upload_handler: async function (blobInfo, success, failure) {
+            console.log(blobInfo);
+            const resp = await api.uploadMedia(blobInfo.blob())
+            if(resp.status === 200){
+                const { id } = await resp.json();
+                success(`${api.address}/resources/${id}`);
+            }
+            else{
+              failure("Не олучилось загрузить картинку. Увольте бэкендера");
+            }
+          },
           plugins: [
             'advlist autolink lists link image charmap print preview anchor',
             'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table paste code help wordcount'
+            'insertdatetime media table paste code help wordcount code'
           ],
           toolbar: 'undo redo | formatselect | ' +
           'bold italic backcolor link | alignleft aligncenter ' +
           'alignright alignjustify | bullist numlist outdent indent | ' +
-          'removeformat | image | help',
+          'removeformat | image | code | help',
         }}
         // inline={true}
         {...props}

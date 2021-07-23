@@ -100,7 +100,10 @@ export const ComplationEdit = observer(props => {
                 <SectionTitle>
                     {complation.title}
                 </SectionTitle>
-                <Toggle />
+                <Toggle 
+                active={!complation.hidden}
+                onChange={(e) => handleChange('hidden', !e.target.checked)}
+                />
                 <div className={styles.bulk} onClick={()=>{
                     compilations.delete(complation.id);
                     history.goBack();

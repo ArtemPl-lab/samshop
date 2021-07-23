@@ -56,7 +56,7 @@ class ComplationsStore{
     async getComplation(path){
         const inStore = this.list.find(comp => comp.path === path);
         if(inStore) return inStore;
-        const resp = await fetch(`https://samshop.foxcpp.dev/api/compilations/${path}`, {
+        const resp = await fetch(`https://samshop.foxcpp.dev/api/admin/compilations/${path}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

@@ -31,6 +31,7 @@ export const InnerPage = ({ title, pageId }) => {
             <SectionTitle>
                 {title}
             </SectionTitle>
+            <br />
             <Image 
                 id={state.image}
                 width="100%"
