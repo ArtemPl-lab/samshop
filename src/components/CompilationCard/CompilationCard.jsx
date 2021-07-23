@@ -3,7 +3,7 @@ import Card from '../Card/Card';
 import Toggle from '../Toggle/Toggle';
 import styles from './CompilationCard.module.css';
 import { useStore } from '../../store/store';
-const CompilationCard = ({ id, handleChange, deleteCmp, toggleCmp, isActive }) => {
+const CompilationCard = ({ id, handleChange, deleteCmp, toggleCmp, isActive, disabled = false }) => {
     const { compilations } = useStore();
     const cmp = compilations.list.find(el => el.id === id);
     return(
@@ -25,11 +25,10 @@ const CompilationCard = ({ id, handleChange, deleteCmp, toggleCmp, isActive }) =
                     onChange={(e)=>toggleCmp(cmp.id, e.target.checked)}
                     active={isActive}
                 />
+                {
+                   disabled && <div className={styles.disabled}></div>
+                }
             </Card>
-            &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-            <div className={styles.bulk} onClick={()=>deleteCmp(id)}>
-                Удалить с главной
-            </div>
         </div>
     )
 }

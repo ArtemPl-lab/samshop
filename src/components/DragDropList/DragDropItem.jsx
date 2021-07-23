@@ -37,7 +37,7 @@ const DragDropItem = props => {
     drag(drop(ref));
     const draggedClass = isDragging ? styles.dragged : '';
     return(
-        <div ref={ref} data-handler-id={handlerId} className={`${styles.item} ${draggedClass}`}>
+        <div ref={ref} data-handler-id={handlerId} className={`${styles.item} ${draggedClass}`} style={props.style}>
             {props.children}
         </div>
     );

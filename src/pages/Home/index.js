@@ -177,19 +177,24 @@ export const  Homepage = observer(props => {
                             if(!cmp) return <></>;
                             cmpCounter++;
                             return(
-                                <div key={cmp.id}>
+                                <div key={id} className={styles.cmp_item}>
                                     <DragDropItem
                                         index={index}
                                         moveCard={moveCard}
+                                        style={{ width: "100%" }}
                                     >
                                         <CompilationCard 
                                             {...cmp}
                                             handleChange={(id)=>cmpId(index, id)}
                                             deleteCmp={deleteCmp}
                                             toggleCmp={toggleCmp}
-                                            isActive={!state.compilations_hidden[index]}
+                                            isActive={!(state.compilations_hidden[index] || cmp.hidden)}
+                                            disabled={cmp.hidden}
                                         />
                                     </DragDropItem>
+                                    <div className={styles.bulk} onClick={()=>deleteCmp(id)}>
+                                        Удалить с главной
+                                    </div>
                                 </div>
                             );
                         })

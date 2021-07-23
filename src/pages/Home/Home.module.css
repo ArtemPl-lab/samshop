@@ -36,3 +36,20 @@
 .editor{
     width: 100%;
 }
+.bulk{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #E91B1B;
+    white-space: nowrap;
+    margin-left: 20px;
+}
+.cmp_item{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}

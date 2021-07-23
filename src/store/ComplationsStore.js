@@ -13,7 +13,7 @@ class ComplationsStore{
         this.loadComplations();
     }
     async save(cmp){
-        await fetch(`https://samshop.foxcpp.dev/api/admin/compilations/${cmp.id}`, {
+        const res = await fetch(`https://samshop.foxcpp.dev/api/admin/compilations/${cmp.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -21,6 +21,10 @@ class ComplationsStore{
             },
             body: JSON.stringify(cmp)
         });
+        if(res.ok){
+            const cmpIndex = this.list.findIndex(el => el.id === cmp.id);
+            this.list[cmpIndex] = cmp;
+        }
     }
     async delete(id){
         const res = await fetch(`https://samshop.foxcpp.dev/api/admin/compilations/${id}`, {

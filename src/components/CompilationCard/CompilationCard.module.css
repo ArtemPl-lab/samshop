@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: space-between;
     cursor: move;
+    position: relative;
 }
 .title{
     font-style: normal;
@@ -36,14 +37,16 @@
     -moz-appearance: none;
     appearance: none;
 }
-.bulk{
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 21px;
-    height: 100%;
+
+.disabled{
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
-    color: #E91B1B;
-    white-space: nowrap;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, .6);
+    border-radius: 10px;
 }
