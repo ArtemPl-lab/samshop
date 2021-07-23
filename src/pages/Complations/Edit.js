@@ -236,7 +236,7 @@ const SearchProduct = props => {
     const [products, setProducts] = useState([]);
     const handleChange = async e => {
         setVal(e.target.value);
-        const res = await api.get('/catalog/search', {
+        const res = await api.get('/admin/goods/search', {
             query: e.target.value,
             count: 10
         });
