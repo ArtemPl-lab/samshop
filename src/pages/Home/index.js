@@ -24,6 +24,7 @@ export const  Homepage = observer(props => {
         compilations_hidden: [],
         goods: []
     });
+    let cmpCounter = 0;
     const [goods, setGoods] = useState([]);
     const moveCard = (dragIndex, hoverIndex) => {
         const dragCard = state.compilations[dragIndex];
@@ -174,6 +175,7 @@ export const  Homepage = observer(props => {
                         state.compilations.map((id, index) => {
                             const cmp = compilations.list.find(el => el.id === id);
                             if(!cmp) return <></>;
+                            cmpCounter++;
                             return(
                                 <div key={cmp.id}>
                                     <DragDropItem
@@ -193,10 +195,14 @@ export const  Homepage = observer(props => {
                         })
                     }
                 </div>
-                <Button color="blue" onClick={addCmp}>
-                    <IconPlus />
-                    Добавить подборку
-                </Button>
+                {
+                    cmpCounter < 5 && cmpCounter < compilations.list.length ?
+                    <Button color="blue" onClick={addCmp}>
+                        <IconPlus />
+                        Добавить подборку
+                    </Button> :
+                    ''
+                }
             </section>
             <section className={styles.products}>
                 <SectionTitle>
@@ -206,7 +212,11 @@ export const  Homepage = observer(props => {
                     Выберите товары, которые будут показаны на Главной странице. Максимум 4 товара.
                     <br />
                     <br />
-                    <SearchProduct handler={addGood}/>
+                    {
+                        goods.length < 4 ?
+                        <SearchProduct handler={addGood}/> :
+                        ''
+                    }
                 </p>
                 <div className={styles.goods_grid}>
                     {
