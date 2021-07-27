@@ -19,7 +19,7 @@ export const Requests = observer(props => {
     return(
         <div className={styles.wrapper}>
             <Tabs className={styles.tabs} onChange={setCurrentTab}>
-                <Tab name="От гостей" slug="orders" className={styles.orders}> 
+                <Tab name="В один клик" slug="orders" className={styles.orders}> 
                     {
                         requests.list.filter(req => req.type === "orders").map(order => {
                             const date = new Date(order.created_at);

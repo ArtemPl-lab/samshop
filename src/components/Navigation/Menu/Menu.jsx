@@ -1,4 +1,7 @@
 import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import api from '../../../api/api';
 import { MenuLink, Hr, Button, IconPlus } from '../../UiKit/UiKit';
 import MenuItem from './Item/Item';
 import styles from './Menu.module.css';
@@ -98,11 +101,28 @@ const menuItems = [
 ];
 
 const Menu = props => {
+    const [ alerts, setAlerts ] = useState({});
+    useEffect(async () => {
+        const res = await api.get(`/has_new`);
+        const json = await res.json();
+        setAlerts(json);
+    }, []);
     return(
         <ul className={styles.menu}>
             {
                 menuItems.map(
-                    (item, key) => <MenuItem item={item} key={key} />
+                    (item, key) => {
+                        const hasAlerts = Object.keys(alerts).some(alrt => {
+                            const hs =  item.props.to &&
+                                        item.props.to.includes(alrt) &&
+                                        alerts[alrt];
+                            console.log('-----------');
+                            console.log(`${item.props.to}: `, hs);
+                            console.log(`${alrt}: `, alerts[alrt]);
+                            return  hs;
+                        });
+                        return <MenuItem item={item} key={key} active={hasAlerts}/>
+                    }
                 )
             }
         </ul>

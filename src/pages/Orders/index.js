@@ -1,5 +1,5 @@
 import styles from './Orders.module.css';
-import {  OrderStatus, SectionTitle } from "../../components/UiKit/UiKit";
+import {  OrderStatus, Search, SectionTitle } from "../../components/UiKit/UiKit";
 import { useStore } from "../../store/store";
 import { observer } from 'mobx-react-lite';
 import { Load } from '../Load';
@@ -17,6 +17,8 @@ export const Orders = observer(props => {
             <SectionTitle>
                 Заказы
             </SectionTitle>
+            <br />
+            <Search placeholder="Поиск по номеру"/>
             <div className={styles.wrapper}>
                 {orders.orders.map(order => <OrderCard order={order} />)}
                 {

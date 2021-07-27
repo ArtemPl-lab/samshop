@@ -15,6 +15,7 @@ const Routes = props => {
             <Route path="/requests" component={Pages.Requests} />
             <Route exact path="/complations" component={Pages.ComplationsPage} />
             <Route path="/complations/:path" component={Pages.ComplationEdit} />
+            <Route path="/lists/:id" component={Pages.List} />
             <Route path="/parthners" component={Pages.Parthners} />
             <Route path="/designers" component={Pages.Designers} />
             <Route exact path="/accounts" component={Pages.Accounts} />

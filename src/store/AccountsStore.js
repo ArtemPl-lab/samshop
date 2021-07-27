@@ -147,6 +147,50 @@ class AccountsStore{
         }
         this.list[userIndex].load = false;
     }
+    async loadUserLists(id){
+        const userIndex = this.list.findIndex(u => u.id == id);
+        if(userIndex == -1 || this.list[userIndex].load) return;
+        this.list[userIndex].load = true;
+        const currentLists = this.list[userIndex].lists || [];
+        var url = new URL('https://samshop.foxcpp.dev/api/lists');
+        url.search = new URLSearchParams({
+            account_id: id,
+            count: 20,
+            offset: currentLists.length
+        }).toString();
+        const resp = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'X-SessionID': await this.root.user.getToken()
+            }
+        });
+        if(resp.status == 200){
+            const { lists } = await resp.json();
+            if(lists.length){
+                this.list[userIndex].lists = [
+                    ...currentLists,
+                    ...lists
+                ]
+            }
+            else{
+                this.list[userIndex].listsLoaded = true;
+            }
+        }
+        this.list[userIndex].load = false;
+    }
+    async deleteList(id){
+        for(let i = 0; this.list.length; i++){
+            if(this.list[i].lists){
+                for(let j = 0; j < this.list[i].lists.length; j++){
+                    if(this.list[i].lists[j].id === id){
+                        this.list[i].lists = this.list[i].lists.filter(el => el.id !== id);
+                        return;
+                    }
+                }
+            }
+        }
+    }
     async loadAccounts(){
         if(this.load) return;
         this.load = true;

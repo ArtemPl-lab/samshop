@@ -29,7 +29,7 @@ const ProdCard = props => {
                 </div>
             </div>
             {
-                active && props.options.length ? 
+                active && props.options && props.options.length ? 
                 <div className={styles.options}>
                     {
                     props.options.map(opt => 

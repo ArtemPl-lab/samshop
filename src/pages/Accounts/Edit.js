@@ -9,6 +9,7 @@ import { Tabs, Tab } from '../../components/Tabs';
 import { observer } from "mobx-react-lite";
 import Orders from "./Orders";
 import MaskedInput from 'react-maskedinput'
+import Lists from "./Lists";
 
 export const AccountsEdit = observer(props => {
     const { id } = useParams();
@@ -144,7 +145,10 @@ export const AccountsEdit = observer(props => {
                             <IconSend />
                             Отправить пароль
                         </Button> :
-                        ''
+                        <Button outline disabled={!userData.password}>
+                            <IconSend />
+                            Отправить пароль
+                        </Button>
                     }
                 </div>
                 <div className={styles.generatePass} onClick={generatePassword}>
@@ -159,7 +163,7 @@ export const AccountsEdit = observer(props => {
                     </div>
                     <Tabs className={styles.tabs}>
                         <Tab name="Списки">
-                            Нет списков
+                            <Lists userId={id}/>
                         </Tab>
                         <Tab name="Заказы">
                             <Orders userId={id}/>

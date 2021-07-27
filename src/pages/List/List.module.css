@@ -1,0 +1,19 @@
+.title{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 32px;
+    color: #2E384D;
+}
+.bulk{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 21px;
+    color: #E91B1B;
+    cursor: pointer;
+    transition: .3s;
+}
+.bulk:hover{
+    opacity: .8;
+}
