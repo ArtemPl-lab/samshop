@@ -56,7 +56,7 @@ export const Parthners = props => {
     return(
         <div className={styles.wrapper}>
             <SectionTitle>
-                Партнёраская программа
+                Дизайнерам
             </SectionTitle>
             <br />
             <Image 
