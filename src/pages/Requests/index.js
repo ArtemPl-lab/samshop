@@ -20,11 +20,7 @@ export const Requests = observer(props => {
     if(inView) requests.loadRequests(currentTab);
     return(
         <div className={styles.wrapper}>
-            <SectionTitle>
-                Заявки от дизайнеров
-            </SectionTitle>
-            <br />
-            <br />
+
             <Tabs className={styles.tabs} onChange={setCurrentTab}>
                 <Tab name="В один клик" slug="orders" className={styles.orders}> 
                     {

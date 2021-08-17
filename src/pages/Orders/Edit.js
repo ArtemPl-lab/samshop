@@ -160,7 +160,7 @@ export const OrderEdit = props => {
                     </div>
                     <hr />
                 </h3>
-            </section> */}
+            </section> */} 
             <section>
                 <p className={styles.item}>
                     <span>Товары:</span>
