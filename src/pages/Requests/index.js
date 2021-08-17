@@ -7,6 +7,7 @@ import { Load } from '../Load';
 import Card from "../../components/Card/Card";
 import { observer } from "mobx-react-lite";
 import ParthnersCard from "./ParthnersCard";
+import { SectionTitle } from "../../components/UiKit/UiKit";
 export const Requests = observer(props => {
     const { requests } = useStore();
     const { ref, inView} = useInView({ threshold: 0 });
@@ -15,11 +16,14 @@ export const Requests = observer(props => {
         const conf = window.confirm(`Вы уверены, что хотите удалить заявку?`);
         if(conf) requests.removeRequest(id);
     }
-    if(inView) requests.loadRequests(currentTab);
+    if(inView) requests.loadRequests("partnerships");
     return(
         <div className={styles.wrapper}>
-            <Tabs className={styles.tabs} onChange={setCurrentTab}>
-                <Tab name="В один клик" slug="orders" className={styles.orders}> 
+            <SectionTitle>
+                Заявки от дизайнеров
+            </SectionTitle>
+            {/* <Tabs className={styles.tabs} onChange={setCurrentTab}> */}
+                {/* <Tab name="В один клик" slug="orders" className={styles.orders}> 
                     {
                         requests.list.filter(req => req.type === "orders").map(order => {
                             const date = new Date(order.created_at);
@@ -39,16 +43,18 @@ export const Requests = observer(props => {
                             );
                         })
                     }
-                </Tab>
-                <Tab name="От дизайнеров" slug="partnerships" className={styles.parthnerships}>
+                </Tab> */}
+                {/* <Tab name="От дизайнеров" slug="partnerships" className={styles.parthnerships}> */}
+                    <div style={{ paddingBottom: 30 }}/>
+                    
                     {
                         requests.list.filter(req => req.type === "partnerships")
                         .map(partner => <ParthnersCard parthner={partner}/>)
                     }
-                </Tab>
-            </Tabs>
+                {/* </Tab>
+            </Tabs> */}
             {
-                requests.hasRequests[currentTab] ?
+                requests.hasRequests["partnerships"] ?
                 <div ref={ref}>
                     <Load />
                 </div> : ''

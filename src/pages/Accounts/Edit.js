@@ -68,6 +68,7 @@ export const AccountsEdit = observer(props => {
             }
         });
     }
+
     const sendPassword = () => {
         accounts.sendUserPassword(id, userData.password);
         setUserDate({

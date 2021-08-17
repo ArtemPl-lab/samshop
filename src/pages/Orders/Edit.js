@@ -1,10 +1,11 @@
 import { useStore } from "../../store/store";
 import { Link, useParams } from "react-router-dom";
-import { SectionTitle, ComeBack, Button, IconSend, OrderStatus } from '../../components/UiKit/UiKit';
+import { SectionTitle, ComeBack, Button, IconSend, OrderStatus, IconLoad } from '../../components/UiKit/UiKit';
 import styles from './Orders.module.css'
 import { useState } from "react";
 import { useEffect } from "react";
 import ProdCard from "./ProdCard";
+import api from "../../api/api";
 
 export const OrderEdit = props => {
     const { id } = useParams();
@@ -13,6 +14,41 @@ export const OrderEdit = props => {
         user: null,
         load: true
     });
+    const uploadInvoice = async e => {
+        const invoice = e.target.files[0];
+        setState(prev => ({
+            ...prev,
+            order: {
+                ...state.order,
+                has_invoice: true
+            }
+        }));
+        await api.put(`/orders/${id}/invoice`, invoice);
+    }
+    const downloadInvoice = async e => {
+        const res = await api.get(`/orders/${id}/invoice`);
+        const invoice = await res.blob();
+        var urlCreator = window.URL || window.webkitURL;
+        var link = document.createElement('a');
+        link.setAttribute('href', urlCreator.createObjectURL(invoice));
+        link.setAttribute('download','download');
+        link.click();
+    }
+    const downloadOrder = async e => {
+        const res = await api.get(`/orders/${id}/pdf`);
+        if(res.ok){
+            const invoice = await res.blob();
+            var urlCreator = window.URL || window.webkitURL;
+            var link = document.createElement('a');
+            link.setAttribute('href', urlCreator.createObjectURL(invoice));
+            link.setAttribute('download','download');
+            link.click();
+        }
+        else{
+            alert(`Произошла ошибка! Статус - ${res.status}`);
+        }
+
+    }
     const { orders, accounts } = useStore();
     useEffect(async ()=>{
         const ord = await orders.getOrder(id);
@@ -55,6 +91,19 @@ export const OrderEdit = props => {
             </div>
             <section>
                 <h3 className={styles.label}>
+                    <Button 
+                        color="blue"
+                        style={{
+                            width: "100%"
+                        }}
+                        onClick={downloadOrder}
+                    >
+                        Скачать заказ в pdf
+                    </Button>
+                </h3>
+            </section>
+            <section>
+                <h3 className={styles.label}>
                     Товары:
                     {state.order.items.map(item => {
                         return(
@@ -80,6 +129,35 @@ export const OrderEdit = props => {
                             );
                         })}
                     </ul>
+                    <hr />
+                </h3>
+            </section>
+            <section>
+                <h3 className={styles.label}>
+                    Накладная:
+                    <div className={styles.invoice_wrapper}>
+                        {
+                            state.order.has_invoice ?
+                            <>
+                                <Button 
+                                    color="blue"
+                                    style={{
+                                        width: "100%"
+                                    }}
+                                    onClick={downloadInvoice}
+                                >
+                                    Скачать накладную
+                                </Button>
+                                <br />
+                            </> :
+                            ''
+                        }
+                        <input type="file" className={styles.invoice_input} id={id} onChange={uploadInvoice}/>
+                        <label htmlFor={id} className={styles.invoice_label}>
+                            <IconLoad />
+                            Загрузить накладную
+                        </label>
+                    </div>
                     <hr />
                 </h3>
             </section>

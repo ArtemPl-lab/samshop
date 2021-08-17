@@ -148,3 +148,38 @@ p.item{
     line-height: 21px;
     color: #2E384D;
 }
+
+.invoice_input{
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    left: 0;
+    top: 0;
+}
+.invoice_label{
+    background: #2E5BFF;
+    border-radius: 4px;
+    padding: 9.5px 39px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: .3s;
+    display: inline-block;
+    white-space: nowrap;
+}
+.invoice_label:hover{
+    opacity: .8;
+}
+.invoice_label svg{
+    margin-right: 8px;
+}
+.invoice_wrapper{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
