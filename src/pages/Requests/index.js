@@ -8,6 +8,7 @@ import Card from "../../components/Card/Card";
 import { observer } from "mobx-react-lite";
 import ParthnersCard from "./ParthnersCard";
 import { SectionTitle } from "../../components/UiKit/UiKit";
+import OrderCard from "../../components/OrderCard/OrderCard";
 export const Requests = observer(props => {
     const { requests } = useStore();
     const { ref, inView} = useInView({ threshold: 0 });
@@ -16,45 +17,31 @@ export const Requests = observer(props => {
         const conf = window.confirm(`Вы уверены, что хотите удалить заявку?`);
         if(conf) requests.removeRequest(id);
     }
-    if(inView) requests.loadRequests("partnerships");
+    if(inView) requests.loadRequests(currentTab);
     return(
         <div className={styles.wrapper}>
             <SectionTitle>
                 Заявки от дизайнеров
             </SectionTitle>
-            {/* <Tabs className={styles.tabs} onChange={setCurrentTab}> */}
-                {/* <Tab name="В один клик" slug="orders" className={styles.orders}> 
+            <br />
+            <br />
+            <Tabs className={styles.tabs} onChange={setCurrentTab}>
+                <Tab name="В один клик" slug="orders" className={styles.orders}> 
                     {
-                        requests.list.filter(req => req.type === "orders").map(order => {
-                            const date = new Date(order.created_at);
-                            return(
-                                <Card className={styles.orderCard}>
-                                    <div>
-                                        <div className={styles.good_name}>
-                                            {order.good_name}
-                                        </div>
-                                        <a href={`tel: ${order.phone}`} className={styles.order_phone}>
-                                            {order.phone}
-                                        </a>
-                                    </div>
-                                    <div className={styles.order_date}>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</div>
-                                    <div className={styles.bulk} onClick={()=>bulk(order.id)}>Удалить</div>
-                                </Card>
-                            );
-                        })
+                        requests.list.filter(req => req.type === "orders").map(order => <OrderCard order={order}/>)
                     }
-                </Tab> */}
-                {/* <Tab name="От дизайнеров" slug="partnerships" className={styles.parthnerships}> */}
+                </Tab>
+                <Tab name="От дизайнеров" slug="partnerships" className={styles.parthnerships}>
                     <div style={{ paddingBottom: 30 }}/>
                     
                     {
                         requests.list.filter(req => req.type === "partnerships")
                         .map(partner => <ParthnersCard parthner={partner}/>)
                     }
-                {/* </Tab>
-            </Tabs> */}
+                </Tab>
+            </Tabs>
             {
-                requests.hasRequests["partnerships"] ?
+                requests.hasRequests[currentTab] ?
                 <div ref={ref}>
                     <Load />
                 </div> : ''

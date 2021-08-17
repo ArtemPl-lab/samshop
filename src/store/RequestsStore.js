@@ -27,7 +27,7 @@ class RequestsStore{
         var url;
         switch(req.type){
             case "orders":
-                url = `https://samshop.foxcpp.dev/api/oneclick_orders/${id}`
+                url = `https://samshop.foxcpp.dev/api/orders?oneclick=true`
                 break;
             case "partnerships":
                 url = `https://samshop.foxcpp.dev/api/designer_partnerships/${id}`
@@ -51,12 +51,13 @@ class RequestsStore{
         let requests = [];
         const params = new URLSearchParams({
             count: 20,
-            offset: this.list.filter(req => req.type === type).length
+            offset: this.list.filter(req => req.type === type).length,
+            oneclick: true
         }).toString();
         var url;
         switch(type){
             case "orders":
-                url = new URL('https://samshop.foxcpp.dev/api/oneclick_orders');
+                url = new URL('https://samshop.foxcpp.dev/api/orders');
                 break;
             case "partnerships":
                 url = new URL('https://samshop.foxcpp.dev/api/designer_partnerships');

@@ -132,7 +132,7 @@ export const OrderEdit = props => {
                     <hr />
                 </h3>
             </section>
-            <section>
+            {/* <section>
                 <h3 className={styles.label}>
                     Накладная:
                     <div className={styles.invoice_wrapper}>
@@ -160,7 +160,7 @@ export const OrderEdit = props => {
                     </div>
                     <hr />
                 </h3>
-            </section>
+            </section> */}
             <section>
                 <p className={styles.item}>
                     <span>Товары:</span>
