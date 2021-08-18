@@ -2,6 +2,8 @@
     position: relative;
     padding: 15px 65px;
     transition: .3s;
+    display: flex;
+    align-items: center;
 }
 .active{
     background: #FFFFFF;
@@ -14,8 +16,9 @@
     width: 8px;
     background: #38A466;
     border-radius: 100%;
-    position: absolute;
+    margin-left: 20px;
+    /* position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 150px;
+    right: 180px; */
 }
