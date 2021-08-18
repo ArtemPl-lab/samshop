@@ -4,8 +4,7 @@ import RootStore from './RootStore';
 const storeContext = createContext();
 
 export const StoreProvider = ({ children }) => {
-    const value = new RootStore();
-    return <storeContext.Provider value={value}>{children}</storeContext.Provider>
+    return <storeContext.Provider value={RootStore}>{children}</storeContext.Provider>
 }
 export const useStore = () => {
     const store = useContext(storeContext)

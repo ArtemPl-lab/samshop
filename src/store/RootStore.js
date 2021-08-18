@@ -2,6 +2,7 @@ import AccountsStore from "./AccountsStore";
 import ChangesStore from "./ChangesStore";
 import ComplationsStore from "./ComplationsStore";
 import DesignersStore from "./DesignersStore";
+import HasNewStore from "./HasNewStore";
 import OrderStore from "./OrdersStore";
 import PagesStore from "./PagesStore";
 import RequestsStore from "./RequestsStore";
@@ -19,7 +20,8 @@ class RootStore{
         this.compilations = new ComplationsStore(this);
         this.pages = new PagesStore(this);
         this.designers = new DesignersStore(this);
+        this.has_new = new HasNewStore(this);
     }
 }
 
-export default RootStore;
+export default new RootStore();
