@@ -18,7 +18,7 @@ class AccountsStore{
         });
         this.loadAccounts();
     }
-    setFilters(key, value){
+    async setFilters(key, value){
         this.options = {
             ...this.options,
             [key]: value
@@ -27,7 +27,26 @@ class AccountsStore{
         this.page = 0;
         this.options.offset = 0;
         this.havePosts = true;
-        this.loadAccounts();
+        this.options = {
+            ...this.options,
+            offset: this.page * this.options.count
+        };
+        var url = new URL('https://samshop.foxcpp.dev/api/accounts');
+        url.search = new URLSearchParams(this.options).toString();
+        const resp = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'X-SessionID': await this.root.user.getToken()
+            },
+        });
+        if(resp.status == 200){
+            const respJson = await resp.json();
+            if(respJson.ok){
+                this.havePosts = Boolean(respJson.accounts.length)
+                this.list = [...new Set(this.list.concat(respJson.accounts).map(JSON.stringify))].map(JSON.parse);
+            }
+        }
     }
     async deleteUser(id){
         const resp = await fetch(`https://samshop.foxcpp.dev/api/accounts/${id}`, {

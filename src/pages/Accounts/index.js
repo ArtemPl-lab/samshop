@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { Load } from '../Load';
 import AccountCard from './AccountCard';
 import { useInView } from 'react-intersection-observer';
+
 export const Accounts = observer(props => {
     const { accounts } = useStore();
     const { ref, inView} = useInView({ threshold: 0 });
@@ -36,7 +37,7 @@ export const Accounts = observer(props => {
                 {accounts.list.map(account => <AccountCard {...account}/>)}
             </div>
             {
-                accounts.havePosts ?
+                accounts.havePosts && accounts.options.name_filter === '' ?
                 <div ref={ref}>
                     <Load /> 
                 </div> : ''
