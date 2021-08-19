@@ -5,11 +5,11 @@ import { observer } from 'mobx-react-lite';
 import { Load } from '../Load';
 import { useInView } from 'react-intersection-observer';
 import OrderCard from '../../components/OrderCard/OrderCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../api/api';
 
 export const Orders = observer(props => {
-    const { orders } = useStore();
+    const { orders, has_new } = useStore();
     const { ref, inView} = useInView({ threshold: 0 });
     const [search, setSearch] = useState([]);
     const handleSearch = async  e => {
@@ -23,9 +23,15 @@ export const Orders = observer(props => {
         const json = await res.json();
         setSearch([...json.orders]);
     }
+
     if(inView && !orders.load && !orders.ordersLoaded){
         orders.loadOrders();
     }
+    useEffect(() => {
+        has_new.view({
+            orders: false
+        })
+    }, []);
     return(
         <>
             <SectionTitle>

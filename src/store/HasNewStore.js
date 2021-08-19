@@ -8,6 +8,12 @@ class HasNewStore{
         makeAutoObservable(this);
         this.init();
     }
+    view(change){
+        this.data = {
+            ...this.data,
+            ...change
+        }
+    }
     async init(){
         if(this.loaded) return;
         this.loaded = true;
