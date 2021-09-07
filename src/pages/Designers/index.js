@@ -23,7 +23,7 @@ export const Designers = observer(props => {
     return(
         <>
             <SectionTitle>
-                Дизайнеры товаров
+                Бренды
             </SectionTitle>
             <div className={styles.wrapper}>
                 {designers.list.map((des, index) => <Designer data={des} key={index}/>)}

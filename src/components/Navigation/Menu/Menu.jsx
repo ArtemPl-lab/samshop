@@ -48,7 +48,7 @@ const Menu = props => {
             props: {
                 to: '/designers'
             },
-            content: 'Дизайнеры товаров',
+            content: 'Бренды',
             bage: false
         },
         {
