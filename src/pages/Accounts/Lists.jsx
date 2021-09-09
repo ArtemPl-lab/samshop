@@ -20,6 +20,7 @@ const Lists = observer(({ userId }) => {
         console.log("lists");
         accounts.loadUserLists(userId);
     }
+    if(!user) return <></>;
     return (
         <div className={styles.orders_grid}>
             {

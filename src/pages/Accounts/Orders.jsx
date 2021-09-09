@@ -12,6 +12,7 @@ const Orders = observer(({ userId }) => {
     if(inView && !user.load){
         accounts.loadUserOrders(userId);
     }
+    if(!user) return <></>;
     return (
         <div className={styles.orders_grid}>
             {
