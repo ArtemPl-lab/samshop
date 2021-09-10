@@ -157,7 +157,7 @@ export const AccountsEdit = observer(props => {
                 </div>
             </div>
             {
-                id !== 'new' && userData.name ?
+                id !== 'new' && userData.name && !userData.admin ?
                 <>
                     <div className={styles.bulk_account} onClick={bulkUser}>
                         Удалить аккаунт
