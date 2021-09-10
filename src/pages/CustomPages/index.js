@@ -33,6 +33,10 @@ export const CustomPages = props => {
                 title="Политика конфиденциальности" 
                 id="privacy_policy"
             />
+            <Page 
+                title="Пользовательское соглашение" 
+                id="user_agreement"
+            />
         </div>
     );
 }
